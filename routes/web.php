@@ -24,6 +24,8 @@ route::get('/employees/create', [Employees::class, 'create'])->name('employees.c
 
 route::post('/employees/store', [Employees::class, 'store'])->name('employees.store');
 
-route::get('/employees/edit', [Employees::class, 'edit']);
+route::get('/employees/{id}/edit', [Employees::class, 'edit'])->name('employees.edit');
 
-route::get('/employees/show', [Employees::class, 'show']);
+route::get('/employees/{id}', [Employees::class, 'show'])->name('employees.show');
+
+route::put('/employees/{employee}', [Employees::class, 'update'])->name('employees.update');

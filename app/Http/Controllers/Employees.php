@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use PHPUnit\Event\Emitter;
 
 class Employees extends Controller
 {
@@ -12,8 +13,9 @@ class Employees extends Controller
      */
     public function index()
     {
+        $employees = Employee::orderby('id', 'desc')->paginate(10);
 
-        return view('index');
+        return view('index', compact('employees'));
     }
 
     /**
@@ -61,7 +63,6 @@ class Employees extends Controller
      */
     public function show(string $id)
     {
-        return view('create');
     }
 
     /**
@@ -69,15 +70,44 @@ class Employees extends Controller
      */
     public function edit(string $id)
     {
-        return view('testt');
+        $employees =  Employee::find($id);
+
+        return view('edit', compact('employees'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email,' . $employee->id,
+            'phone' => 'required|numeric|unique:employees,phone,' . $employee->id . '|digits_between:10,10',
+            'salary' => 'required',
+        ], [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is invalid',
+            'email.unique' => 'Email is already taken',
+            'phone.required' => 'Phone is required',
+            'phone.numeric' => 'Phone must be numeric',
+            'phone.digits_between' => 'Phone must be 10 digits',
+            'phone.unique' => 'Phone is already taken',
+            'salary.required' => 'Salary is required',
+        ]);
+
+
+
+
+        $data = $request->all();
+
+
+
+        $employee->update($data);
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee updated successfully');
     }
 
     /**
