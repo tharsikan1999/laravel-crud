@@ -10,7 +10,7 @@
         </ul>
     </div>
 @endif -->
-
+<a class="text-light" href="{{route('employees.index')}}">Back to List</a>
 <div class="card">
     <div class="card-body">
         <p style="font-size:20px; font-weight:bold;">Create New Employee</p>

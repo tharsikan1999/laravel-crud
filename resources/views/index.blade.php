@@ -34,9 +34,15 @@
                             <td>{{$employee->joining_date}}</td>
                             <td><span type="button" class="btn  {{$employee->is_active ==1? 'btn-success': 'btn-danger'}} btn-xs py-0">{{$employee->is_active?'active':'inactive'}}</span></td>
                             <td>
-                                <a href="{{route('employees.show',$employee->id)}}" class="btn btn-primary btn-xs py-0">Show</a>
-                                <a href="{{route('employees.edit',$employee->id)}}" class="btn btn-warning btn-xs py-0">Edit</a>
-                                <button type="submit" class="btn btn-danger btn-xs py-0">Delete</button>
+                                <div class="d-flex">
+                                    <a href="{{route('employees.show',$employee->id)}}" class="btn btn-primary btn-xs py-0 mx-1">Show</a>
+                                    <a href="{{route('employees.edit',$employee->id)}}" class="btn btn-warning btn-xs py-0 mx-1">Edit</a>
+                                    <form action="{{route('employee.destroy',$employee->id)}}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger btn-xs py-0">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

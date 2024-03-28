@@ -61,16 +61,18 @@ class Employees extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Employee $employee)
     {
+
+        return view('show', compact('employee'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
-        $employees =  Employee::find($id);
+        $employees =  Employee::find($employee->id);
 
         return view('edit', compact('employees'));
     }
@@ -113,8 +115,11 @@ class Employees extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee deleted successfully');
     }
 }

@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-route::get('/employees', [Employees::class, 'index'])->name('employees.index');
+route::get('/', [Employees::class, 'index'])->name('employees.index');
 
 route::get('/employees/create', [Employees::class, 'create'])->name('employees.create');
 
 route::post('/employees/store', [Employees::class, 'store'])->name('employees.store');
 
-route::get('/employees/{id}/edit', [Employees::class, 'edit'])->name('employees.edit');
+route::get('/employees/{employee}/edit', [Employees::class, 'edit'])->name('employees.edit');
 
-route::get('/employees/{id}', [Employees::class, 'show'])->name('employees.show');
+route::get('/employees/{employee}', [Employees::class, 'show'])->name('employees.show');
 
 route::put('/employees/{employee}', [Employees::class, 'update'])->name('employees.update');
+
+route::delete('/employees/{employee}', [Employees::class, 'destroy'])->name('employee.destroy');

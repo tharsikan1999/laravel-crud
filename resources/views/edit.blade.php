@@ -6,6 +6,7 @@
     {{session()->get('success')}}
 </div>
 @endif
+<a class="text-light" href="{{route('employees.index')}}">Back to List</a>
 <div class="card">
     <div class="card-body">
         <p style="font-size:20px; font-weight:bold;">Update Employee</p>
@@ -14,7 +15,7 @@
             @method('PUT')
             <div class="form-group has-validation">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{$employees->name}}" required>
+                <input type="text" name="name" id="name" class="form-control {{$errors->has('name')?'is-invalid':''}}" value="{{$employees->name}}" required>
                 @if($errors->has('name'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -23,7 +24,7 @@
             </div>
             <div class="form-group has-validation">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{$employees->email}}" required>
+                <input type="email" name="email" id="email" class="form-control {{$errors->has('email')?'is-invalid':''}}" value="{{$employees->email}}" required>
                 @if($errors->has('email'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('email') }}</strong>
@@ -32,7 +33,7 @@
             </div>
             <div class="form-group has-validation">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone" id="phone" class="form-control" value="{{$employees->phone}}" required>
+                <input type="text" name="phone" id="phone" class="form-control {{$errors->has('phone')?'is-invalid':''}}" value="{{$employees->phone}}" required>
                 @if($errors->has('phone'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('phone') }}</strong>
@@ -41,7 +42,7 @@
             </div>
             <div class="form-group has-validation   ">
                 <label for="joining_date">Joining date</label>
-                <input type="date" name="joining_date" id="joining_date" class="form-control" value="{{$employees->joining_date}}" required>
+                <input type="date" name="joining_date" id="joining_date" class="form-control {{$errors->has('joining_date')?'is-invalid':''}}" value="{{$employees->joining_date}}" required>
                 <span class="invalid-feedback">
                     <strong>Error</strong>
                 </span>
@@ -49,7 +50,7 @@
 
             <div class="form-group has-validation">
                 <label for="joining_salary">Joining salary</label>
-                <input type="number" name="salary" id="salary" class="form-control" value="{{$employees->salary}}" required>
+                <input type="number" name="salary" id="salary" class="form-control {{$errors->has('salary')?'is-invalid':''}}" value="{{$employees->salary}}" required>
                 @if($errors->has('salary'))
                 <span class="invalid-feedback">
                     <strong>{{ $errors->first('salary') }}</strong>
@@ -58,7 +59,7 @@
             </div>
             <div class="form-group has-validation">
                 <label for="is_active">Active</label><br>
-                <input type="checkbox" name="is_active" id="is_active" value="1" {{$employees->is_active == '1' ? 'checked' : '' }} required>
+                <input type="checkbox" name="is_active" id="is_active" value="1" {{$employees->is_active == '1' ? 'checked' : '' }}>
                 <span class="invalid-feedback">
                     <strong>Error</strong>
                 </span>
