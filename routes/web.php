@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-route::get('/employees', [Employees::class, 'index']);
+route::get('/employees', [Employees::class, 'index'])->name('employees.index');
 
 route::get('/employees/create', [Employees::class, 'create'])->name('employees.create');
 

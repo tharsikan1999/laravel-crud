@@ -29,20 +29,32 @@ class Employees extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:employees,email',
+            'phone' => 'required|numeric|unique:employees,phone|digits_between:10,10',
+            'salary' => 'required',
+        ], [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is invalid',
+            'email.unique' => 'Email is already taken',
+            'phone.required' => 'Phone is required',
+            'phone.numeric' => 'Phone must be numeric',
+            'phone.digits_between' => 'Phone must be 10 digits',
+            'phone.unique' => 'Phone is already taken',
+            'salary.required' => 'Salary is required',
+
+        ]);
+
         $data = $request->except('_token');
 
         Employee::create($data);
 
-        // $employee = new Employee();
-        // $employee->name = $data['name'];
-        // $employee->email = $data['email'];
-        // $employee->joining_date = $data['joining_date'];
-        // $employee->salary = $data['salary'];
-        // $employee->is_active = $data['is_active'];
-        // $employee->phone = $data['phone'];
-        // $employee->save();
-        dd('Success full created employee', $request->all());
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee created successfully');
     }
+
 
     /**
      * Display the specified resource.
